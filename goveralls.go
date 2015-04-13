@@ -151,6 +151,8 @@ func process() error {
 	}
 
 	b, err := json.Marshal(j)
+	fmt.Println("Coveralls ServiceBuildUrl:")
+	fmt.Println(j.ServiceBuildUrl)
 	if err != nil {
 		return err
 	}
