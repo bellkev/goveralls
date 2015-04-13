@@ -60,6 +60,7 @@ type Job struct {
 //	ServiceJobId string        `json:"service_job_id"`
 	ServiceNum   string	   `json:"service_number"`
 	ServiceJobNum string	   `json:"service_job_number"`
+	ServiceBuildUrl string	   `json:"service_build_url"`
 	ServiceName  string        `json:"service_name"`
 	SourceFiles  []*SourceFile `json:"source_files"`
 	Git          *Git          `json:"git,omitempty"`
@@ -143,6 +144,7 @@ func process() error {
 		RepoToken:    repotoken,
 		ServiceNum:   os.Getenv("CIRCLE_BUILD_NUM"),
 		ServiceJobNum:	os.Getenv("CIRCLE_NODE_INDEX"),
+		ServiceBuildUrl: fmt.Sprintf("https://circleci.com/gh/%s/%s/%s", os.Getenv("CIRCLE_PROJECT_USERNAME"), os.Getenv("CIRCLE_PROJECT_REPONAME"), os.Getenv("CIRCLE_BUILD_NUM")),
 		Git:          collectGitInfo(),
 		SourceFiles:  getCoverage(),
 		ServiceName:  *service,
