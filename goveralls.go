@@ -57,7 +57,9 @@ type SourceFile struct {
 // A Job represents the coverage data from a single run of a test suite.
 type Job struct {
 	RepoToken    *string       `json:"repo_token,omitempty"`
-	ServiceJobId string        `json:"service_job_id"`
+//	ServiceJobId string        `json:"service_job_id"`
+	ServiceNum   string	   `json:"service_number"`
+	ServiceJobNum string	   `json:"service_job_number"`
 	ServiceName  string        `json:"service_name"`
 	SourceFiles  []*SourceFile `json:"source_files"`
 	Git          *Git          `json:"git,omitempty"`
@@ -139,7 +141,8 @@ func process() error {
 	j := Job{
 		RunAt:        time.Now(),
 		RepoToken:    repotoken,
-		ServiceJobId: jobId,
+		ServiceNum:   os.Getenv("CIRCLE_BUILD_NUM"),
+		ServiceJobNum:	os.Getenv("CIRCLE_NODE_INDEX"),
 		Git:          collectGitInfo(),
 		SourceFiles:  getCoverage(),
 		ServiceName:  *service,
